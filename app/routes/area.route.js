@@ -73,6 +73,11 @@ router.get('/:id', (req, res) => {
 	});
 });
 
+//demo route
+router.get('/test', (req, res) => {
+	res.status(200).send("Server running");
+	
+});
 
 
 // save obj
