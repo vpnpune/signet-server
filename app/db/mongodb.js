@@ -2,7 +2,7 @@ import { MongoClient,ObjectID } from 'mongodb';
 import * as constants from './../constants'; // import constants
 
 //const uri = `mongodb://localhost:${constants.MONGO_PORT}/${constants.DB_NAME}`;
-const uri="mongodb+srv://m001-student:gC5hQRkRdMGSn8J9@cluster0-aknqy.mongodb.net:27017/test?retryWrites=true";
+const uri="mongodb://m001-student:gC5hQRkRdMGSn8J9@cluster0-shard-00-00-aknqy.mongodb.net:27017,cluster0-shard-00-01-aknqy.mongodb.net:27017,cluster0-shard-00-02-aknqy.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
 let _db
 
 const connectDB = async (callback) => {
