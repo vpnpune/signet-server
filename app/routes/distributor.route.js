@@ -1,8 +1,8 @@
 import express from 'express';
 import Joi from 'joi';
 import validator from 'express-joi-validator';
-import { ClientHandler } from '../handler/client.handler';
 import logger from '../logger';
+import { DistributorHandler } from '../handler/distributor.handler';
 
 
 const log = logger.Logger;
@@ -11,7 +11,9 @@ const router = express.Router();
 // please separate  out 
 const schema = {
 	body: {
-		name: Joi.string().min(3).required()
+		distributorName: Joi.string().min(3).required(),
+		areaId:Joi.number().required()
+
 
 	}
 }
@@ -21,13 +23,14 @@ router.get('/', (req, res) => {
 	let end = req.query.end;
 	let searchText = req.query.searchText;
 	console.log("Start" + start + "  end " + end);
+
 	// for pagination flow 
 	if (start !== undefined && end !== undefined) {
 		let pagination ={}
 		pagination.start = start;
 		pagination.end = end;
 		pagination.searchText = searchText;
-		let resultPromise = ClientHandler.getPagedData(pagination);
+		let resultPromise = DistributorHandler.getPagedData(pagination);
 		resultPromise.then(function (result) {
 			if (result) {
 				res.status(200).send(result);
@@ -38,7 +41,7 @@ router.get('/', (req, res) => {
 			res.status(500).send({ "message": "Something went wrong" });
 		});
 	} else {
-		let resultPromise = ClientHandler.getAll();
+		let resultPromise = DistributorHandler.getAll();
 		resultPromise.then(function (result) {
 			if (result) {
 				res.status(200).send(result);
@@ -58,7 +61,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 	let id = req.params.id;
 
-	let resultPromise = ClientHandler.getOne(id);
+	let resultPromise = DistributorHandler.getOne(id);
 	console.log("client id " + id)
 	resultPromise.then(function (result) {
 		if (result) {
@@ -74,7 +77,7 @@ router.get('/:id', (req, res) => {
 
 // save obj
 router.post('/', validator(schema, { allowUnknown: true, abortEarly: false }), (req, res, next) => {
-	let resultPromise = ClientHandler.save(req.body);
+	let resultPromise = DistributorHandler.save(req.body);
 	resultPromise.then(function (result) {
 		if (result) {
 			res.status(200).send(result);
@@ -90,7 +93,7 @@ router.post('/', validator(schema, { allowUnknown: true, abortEarly: false }), (
 router.put('/:id', validator(schema, { allowUnknown: true, abortEarly: false }), (req, res, next) => {
 	let id = req.params.id;
 	console.log("Router put + id"+id);
-	let resultPromise = ClientHandler.updateOne(req.body,id);
+		let resultPromise = DistributorHandler.updateOne(req.body,id);
 
 	resultPromise.then(function (result) {
 		if (result) {
@@ -108,7 +111,7 @@ router.put('/:id', validator(schema, { allowUnknown: true, abortEarly: false }),
 router.delete('/:id', (req, res) => {
 	let id = req.params.id;
 	console.log("Delete Route Called");
-	let resultPromise = ClientHandler.deleteOne(id);
+	let resultPromise = DistributorHandler.deleteOne(id);
 	resultPromise.then(function (result) {
 		if (result) {
 			res.status(200).send(result);

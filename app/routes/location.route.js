@@ -9,7 +9,7 @@ const schema = {
 	body: {
 		name: Joi.string().min(3).required(),
 		description: Joi.string().optional(),
-		initials:Joi.string().min(3).required()
+		initials: Joi.string().min(3).required()
 	}
 }
 
@@ -50,6 +50,7 @@ router.get('/:id', (req, res) => {
 
 // save obj
 router.post('/', validator(schema, { allowUnknown: true, abortEarly: false }), (req, res, next) => {
+
 	let resultPromise = LocationHandler.save(req.body);
 	resultPromise.then(function (result) {
 		if (result) {
@@ -65,9 +66,10 @@ router.post('/', validator(schema, { allowUnknown: true, abortEarly: false }), (
 });
 
 // update ONE obj
-router.put('/', validator(schema, { allowUnknown: true, abortEarly: false }), (req, res, next) => {
-	console.log("Router put");
-	let resultPromise = LocationHandler.updateOne(req.body);
+router.put('/:id', validator(schema, { allowUnknown: true, abortEarly: false }), (req, res, next) => {
+	let id = req.params.id;
+	console.log("Router put + id" + id);
+	let resultPromise = LocationHandler.updateOne(req.body, id);
 
 	resultPromise.then(function (result) {
 		if (result) {
@@ -76,6 +78,7 @@ router.put('/', validator(schema, { allowUnknown: true, abortEarly: false }), (r
 			res.status(200).send([]);
 		}
 	}).catch(err => {
+		console.log(err);
 		log.error(err);
 		res.status(500).send({ "message": "Something went wrong" });
 	});

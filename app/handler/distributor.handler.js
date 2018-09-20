@@ -3,10 +3,10 @@ import * as Collection from '../db/collection-constants';
 
 
 /* SET COLLECTION NAME FIRST*/
-const collectionName = Collection.DOCUMENT_TYPE;
+const collectionName = Collection.DISTRIBUTOR_MASTER;
 
 
-export class DocumentTypeHandler {
+export class DistributorHandler {
     // get all items from collection
     static async getAll() {
         try {
@@ -38,9 +38,9 @@ export class DocumentTypeHandler {
         }
     }
     // update container
-    static async updateOne(data) {
+    static async updateOne(data,id) {
         try {
-            let result =  await DatabaseService.updateOne(collectionName,data);
+            let result =  await DatabaseService.updateOne(collectionName,data,id);
             return result;
         } catch (err) {
             throw err;
@@ -54,6 +54,15 @@ export class DocumentTypeHandler {
         } catch (err) {
             throw err;
         }
+    }
+    static async getPagedData(pagination) {
+        try {
+            pagination = await DatabaseService.getPageData(collectionName,pagination);
+            return pagination;
+        } catch (err) {
+            throw err;
+        }
+
     }
 }
 

@@ -39,11 +39,12 @@ export class DatabaseService {
         }
     }
     // update one collection
-    static async updateOne(collectionName, data) {
+    static async updateOne(collectionName, data, id) {
         try {
             console.log("Update call " + JSON.stringify(data));
             const db = mongodb.getDB();
-            let result = await db.db().collection(collectionName).update({ "_id": data._id }, data, { upsert: false });
+            //data._id=undefined;
+            let result = await db.db().collection(collectionName).replaceOne({ "_id": id }, data, { upsert: false });
             //console.log(JSON.stringify(data));
             return result;
         } catch (err) {

@@ -1,7 +1,7 @@
 // SET ALL COLLECTION NAMES HERE 
-export const CONTAINER_TYPE = "containerType"; 
-export const STORAGE_CONFIG = "storageConfig"; 
 export const LOCATION = "location"; 
-export const DOCUMENT_TYPE = "documentType";
 export const CLIENT = "client"; 
-export const PROJECT = "project";
+//SIGNET SPECIFIC
+export const AREA_MASTER = "area_mst";
+export const DISTRIBUTOR_MASTER = "distributor_mst"; 
+export const CHANNEL_CATEGORY_MASTER = "channel_category_mst";

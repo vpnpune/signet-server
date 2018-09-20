@@ -1,23 +1,18 @@
 import { DatabaseService } from "../db/database.service";
-import mongodb from "../db/mongodb";
 import * as Collection from '../db/collection-constants';
 
 
 /* SET COLLECTION NAME FIRST*/
-const collectionName = Collection.STORAGE_CONFIG;
+const collectionName = Collection.CHANNEL_CATEGORY_MASTER;
 
 
-export class StorageConfigHandler {
+export class ChannelCategoryHandler {
     // get all items from collection
-    static async getAll(key) {
-        console.log("In Service");
+    static async getAll() {
         try {
-            const db = mongodb.getDB();
-
-            let result = await db.db().collection(collectionName).find({"conditionType":key}).toArray();
+            let result = await DatabaseService.getAll(collectionName);
             return result;
         } catch (err) {
-            console.log("In Service" +err);
             throw err;
         }
 
@@ -43,9 +38,9 @@ export class StorageConfigHandler {
         }
     }
     // update container
-    static async updateOne(data) {
+    static async updateOne(data,id) {
         try {
-            let result =  await DatabaseService.updateOne(collectionName,data);
+            let result =  await DatabaseService.updateOne(collectionName,data,id);
             return result;
         } catch (err) {
             throw err;
@@ -59,6 +54,15 @@ export class StorageConfigHandler {
         } catch (err) {
             throw err;
         }
+    }
+    static async getPagedData(pagination) {
+        try {
+            pagination = await DatabaseService.getPageData(collectionName,pagination);
+            return pagination;
+        } catch (err) {
+            throw err;
+        }
+
     }
 }
 

@@ -1,11 +1,12 @@
 import { DatabaseService } from "../db/database.service";
 import * as Collection from '../db/collection-constants';
 
+
 /* SET COLLECTION NAME FIRST*/
-const collectionName = Collection.CONTAINER_TYPE;
+const collectionName = Collection.AREA_MASTER;
 
 
-export class ContainerHandler {
+export class AreaHandler {
     // get all items from collection
     static async getAll() {
         try {
@@ -37,9 +38,9 @@ export class ContainerHandler {
         }
     }
     // update container
-    static async updateOne(data) {
+    static async updateOne(data,id) {
         try {
-            let result =  await DatabaseService.updateOne(collectionName,data);
+            let result =  await DatabaseService.updateOne(collectionName,data,id);
             return result;
         } catch (err) {
             throw err;
@@ -53,6 +54,15 @@ export class ContainerHandler {
         } catch (err) {
             throw err;
         }
+    }
+    static async getPagedData(pagination) {
+        try {
+            pagination = await DatabaseService.getPageData(collectionName,pagination);
+            return pagination;
+        } catch (err) {
+            throw err;
+        }
+
     }
 }
 

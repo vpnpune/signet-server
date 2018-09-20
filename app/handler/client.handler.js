@@ -38,9 +38,9 @@ export class ClientHandler {
         }
     }
     // update container
-    static async updateOne(data) {
+    static async updateOne(data,id) {
         try {
-            let result =  await DatabaseService.updateOne(collectionName,data);
+            let result =  await DatabaseService.updateOne(collectionName,data,id);
             return result;
         } catch (err) {
             throw err;
