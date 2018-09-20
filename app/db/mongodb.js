@@ -1,7 +1,8 @@
 import { MongoClient,ObjectID } from 'mongodb';
 import * as constants from './../constants'; // import constants
 
-const uri = `mongodb://localhost:${constants.MONGO_PORT}/${constants.DB_NAME}`;
+//const uri = `mongodb://localhost:${constants.MONGO_PORT}/${constants.DB_NAME}`;
+const uri=mongodb+srv://m001-student:gC5hQRkRdMGSn8J9@cluster0-aknqy.mongodb.net/test?retryWrites=true
 let _db
 
 const connectDB = async (callback) => {
