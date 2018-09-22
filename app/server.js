@@ -20,9 +20,10 @@ var swaggerDefinition = {
       version: '1.0.0',
       description: 'Demonstrating how to describe a RESTful API with Swagger',
     },
-    host: 'localhost:3000',
+    host: 'https://signetcable.herokuapp.com',
     basePath: '/',
   };
+    //host: 'localhost:3000',
 
   // options for the swagger docs
   var options = {
